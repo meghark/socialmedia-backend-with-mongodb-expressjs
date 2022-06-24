@@ -1,7 +1,22 @@
-const {User, Thought} = require("../../models");
 const router = require('express').router();
+const {
+    getAllUsers,
+    getOneUserById,
+    addUser,
+    updateUser,
+    removeUser
+} = require("../../controllers/user-controller");
 
+router
+    .route('/')
+    .get(getAllUsers)
+    .post(addUser);
 
+router
+    .route('/:id')
+    .get(getOneUserById)
+    .put(updateUser)
+    .delete(removeUser)
 
 
  module.exports = router;

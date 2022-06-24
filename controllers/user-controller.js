@@ -29,7 +29,7 @@ const userController = {
         }
     },
 
-    async AddUser({body}, res){
+    async addUser({body}, res){
         try{
             let response = await User.create(body);
             res.json(response);
@@ -40,7 +40,7 @@ const userController = {
         }
     }, 
     
-    UpdateUser({params, body}, res){
+    async updateUser({params, body}, res){
         try{
             let response = await User.findOneAndUpdate(
                 {_id: params.id}, body, {new: true});
@@ -52,7 +52,7 @@ const userController = {
         }
     },
 
-    RemoveUser({params}, res){
+    async removeUser({params}, res){
         try{
             let response = await User.findOneAndDelete({_id: params.id});
             if(!res)
