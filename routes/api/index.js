@@ -3,9 +3,8 @@ const thoughtRoute = require("./thought-routes");
 const router = require('express').router();
 
 
-router.use('/')
-    .get(userRoute)
-    .post(userRoute);
+router.use('/users', userRoute);
+
 
 
 module.exports = router;
