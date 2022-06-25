@@ -13,7 +13,7 @@ const thoughtController = {
     },
     async getOneThoughtById({params}, res){
         try{
-            let data = await Thought.findOne({ _id: params.id});
+            let data = await Thought.findOne({ _id: params.thoughtId});
             if(!data)
             {
                 res.status(404).json({message: "Thought not found"});
@@ -53,7 +53,7 @@ const thoughtController = {
     async updateThought({params, body}, res){
         try{
             let response = await Thought.findOneAndUpdate(
-                {_id: params.id}, body, {new: true});
+                {_id: params.thoughtId}, body, {new: true});
             res.json(response);
         }
         catch(err){
@@ -63,7 +63,7 @@ const thoughtController = {
     },
     async removeThought({params}, res){
         try{
-            let response = await Thought.findOneAndDelete({_id: params.id});
+            let response = await Thought.findOneAndDelete({_id: params.thoughtId});
             if(!response)
             {
                 res.status(404).json({message : "Thought not found"});
@@ -75,6 +75,43 @@ const thoughtController = {
            console.log(err);
            res.status(400).json(err);
         }
+    },
+    async addReaction({params, body}, res){
+        try{
+            let dbData = await Thought
+                                    .findOneAndUpdate({ _id: params.thoughtId},
+                                        {$push: {reactions : body}},
+                                        {new: true});
+            if(!dbData)
+            {
+                res.status(404).json("Thought not found");
+                return;
+            }
+            res.json(dbData);
+        }
+        catch(err){
+            console.log(err);
+            res.status(400).json(err);
+         }
+
+    },
+    async removeReaction({params}){
+        try{
+            let dbData = await Thought
+                                    .findOneAndUpdate({ _id: params.thoughtId},
+                                        {$pull: {reactions : {reactionId : params.reactionId}}},
+                                        {new: true});
+            if(!dbData)
+            {
+                res.status(404).json("Thought not found");
+                return;
+            }
+            res.json(dbData);
+        }
+        catch(err){
+            console.log(err);
+            res.status(400).json(err);
+         }
     }
 
 };
