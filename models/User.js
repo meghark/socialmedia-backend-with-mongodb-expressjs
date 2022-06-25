@@ -20,13 +20,13 @@ const UserSchema = new Schema({
         type: String,
         unique: true,
         required: true
-    }
-    /*,
+    },
     thoughts: [{
-        //Telling model comments comes from comment model
+        //Telling model thoughts come from thoughts model
         type: Schema.Types.ObjectId,
         ref: 'Thought'
     }],
+    /*
     friends: [{
         //Telling model comments comes from comment model
         type: Schema.Types.ObjectId,
