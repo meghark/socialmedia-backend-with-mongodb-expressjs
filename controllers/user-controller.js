@@ -73,9 +73,7 @@ const userController = {
                 res.status(404).json({message : "User not found"});
                 return;
             }
-            
             let remove = await Thought.deleteMany({userId: params.id});
-
             res.json(response);
         }
         catch(err){
