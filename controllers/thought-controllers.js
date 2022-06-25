@@ -3,7 +3,12 @@ const {Thought, User} = require('../models');
 const thoughtController = {
     async getAllThoughts(req, res){
         try{
-            let data = await Thought.find({});
+            let data = await Thought.find({})
+                                .populate({
+                                    path: 'reactions',
+                                    select: '-__v'
+                                })
+                                .select('-__v');
             res.json(data);
         }
         catch(err){
@@ -49,33 +54,8 @@ const thoughtController = {
            console.log(err);
            res.status(400).json(err);
         }
-    }, 
-    async updateThought({params, body}, res){
-        try{
-            let response = await Thought.findOneAndUpdate(
-                {_id: params.thoughtId}, body, {new: true});
-            res.json(response);
-        }
-        catch(err){
-           console.log(err);
-           res.status(400).json(err);
-        }
     },
-    async removeThought({params}, res){
-        try{
-            let response = await Thought.findOneAndDelete({_id: params.thoughtId});
-            if(!response)
-            {
-                res.status(404).json({message : "Thought not found"});
-                return;
-            }
-            res.json(response);
-        }
-        catch(err){
-           console.log(err);
-           res.status(400).json(err);
-        }
-    },
+    
     async addReaction({params, body}, res){
         try{
             let dbData = await Thought
@@ -112,6 +92,33 @@ const thoughtController = {
             console.log(err);
             res.status(400).json(err);
          }
+    },
+    
+    async updateThought({params, body}, res){
+        try{
+            let response = await Thought.findOneAndUpdate(
+                {_id: params.thoughtId}, body, {new: true});
+            res.json(response);
+        }
+        catch(err){
+           console.log(err);
+           res.status(400).json(err);
+        }
+    },
+    async removeThought({params}, res){
+        try{
+            let response = await Thought.findOneAndDelete({_id: params.thoughtId});
+            if(!response)
+            {
+                res.status(404).json({message : "Thought not found"});
+                return;
+            }
+            res.json(response);
+        }
+        catch(err){
+           console.log(err);
+           res.status(400).json(err);
+        }
     }
 
 };
