@@ -30,6 +30,8 @@ const userController = {
     },
 
     async addUser({body}, res){
+        console.log("here");
+        console.log(body);
         try{
             let response = await User.create(body);
             res.json(response);

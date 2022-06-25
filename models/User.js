@@ -20,7 +20,8 @@ const UserSchema = new Schema({
         type: String,
         unique: true,
         required: true
-    },
+    }
+    /*,
     thoughts: [{
         //Telling model comments comes from comment model
         type: Schema.Types.ObjectId,
@@ -30,7 +31,7 @@ const UserSchema = new Schema({
         //Telling model comments comes from comment model
         type: Schema.Types.ObjectId,
         ref: 'User'
-    }]
+    }]*/
 },
 {
     toJSON: {
@@ -47,4 +48,4 @@ PizzaSchema.virtual('commentCount').get(function() {
 
 const User = model('User', UserSchema);
 
-module.exports = User;
+module.exports = {User};
