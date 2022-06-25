@@ -19,7 +19,13 @@ const UserSchema = new Schema({
     email:{
         type: String,
         unique: true,
-        required: true
+        required: true,
+        validate: {
+            validator: function(e){
+                return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(e);
+            },
+            message: "Invalid email format"
+        }
     },
     thoughts: [{
         //Telling model thoughts come from thoughts model
@@ -39,10 +45,10 @@ const UserSchema = new Schema({
     id: false
 });
 
-/*
-PizzaSchema.virtual('commentCount').get(function() {
-    return this.comments.reduce((total, comment) => total + comment.replies.length + 1, 0);
-}); */
+
+UserSchema.virtual('friendCount').get(function() {
+    return this.friends.length;
+}); 
 
 const User = model('User', UserSchema);
 

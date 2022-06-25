@@ -4,13 +4,13 @@ const dateFormat = require('../utils/dateFormat');
 const ReactionSchema = new Schema({
     reactionId: {
         type: Schema.Types.ObjectId,
-        default: () => new Types.ObjectId()
+        default: () => new Types.ObjectId(),
+        maxLength: 280
     },
     reactionBody: {
         type: String,
         required: true ,
-        trim: true,
-        maxLength: 280
+        trim: true
     },
     username: {
         type: String,
@@ -34,7 +34,9 @@ const ThoughtSchema = new Schema({
     thoughtText:{
         type: String,
         required: true ,
-        trim: true
+        trim: true,
+        maxLength: 280,
+        minLength: 1
     },
     createdAt:{
         type: Date,
@@ -61,10 +63,10 @@ const ThoughtSchema = new Schema({
     id: false
 });
 
-/*
-PizzaSchema.virtual('commentCount').get(function() {
-    return this.comments.reduce((total, comment) => total + comment.replies.length + 1, 0);
-}); */
+
+ThoughtSchema.virtual('reactionCount').get(function() {
+    return this.reactions.length;
+}); 
 
 const Thought = model('Thought', ThoughtSchema);
 
