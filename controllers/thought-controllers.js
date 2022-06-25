@@ -26,11 +26,10 @@ const thoughtController = {
            res.status(400).json(err);
         }
     },
-    async addThought({params, body}, res){
+    async addThought({body}, res){
         try{
             let response = await Thought.create(body);
-        
-            let userdata = await Thought.findOneAndUpdate({_id : params.id},
+            let userdata = await Thought.findOneAndUpdate({_id : body.userId},
                                     {$push: {thoughts: response._id}},
                                     {new: true});
 

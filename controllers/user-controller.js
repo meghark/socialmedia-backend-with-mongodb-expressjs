@@ -4,7 +4,13 @@ const userController = {
 
     async getAllUsers(req, res){
         try{
-            let data = await User.find({});
+            let data = await User.find({})
+                                .populate({
+                                    path: 'thoughts',
+                                    select: '-__v'
+                                })
+                                .select('-__v')
+                                .sort({ _id: -1});
             res.json(data);
         }
         catch(err){
