@@ -4,8 +4,18 @@ const {
     getOneUserById,
     addUser,
     updateUser,
-    removeUser
+    removeUser,
+    addFriends,
+    RemoveFriends
 } = require("../../controllers/user-controller");
+
+router
+    .route('/:userId/friends')
+    .post(addFriends)
+
+router
+    .route('/:userId/friends/:friendId')
+    .delete(RemoveFriends);
 
 router
     .route('/')

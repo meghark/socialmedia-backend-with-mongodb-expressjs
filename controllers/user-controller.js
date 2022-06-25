@@ -52,6 +52,11 @@ const userController = {
         try{
             let response = await User.findOneAndUpdate(
                 {_id: params.id}, body, {new: true});
+            if(!response)
+            {
+                res.status(404).json({message: "User not found"});
+                return;
+            }
             res.json(response);
         }
         catch(err){
@@ -66,6 +71,46 @@ const userController = {
             if(!res)
             {
                 res.status(404).json({message : "User not found"});
+                return;
+            }
+            res.json(response);
+        }
+        catch(err){
+           console.log(err);
+           res.status(400).json(err);
+        }
+    },
+
+    async addFriends({params}, res){
+        try{
+            let response = await User.findOneAndUpdate(
+                {_id: params.userId},
+                {$push: {friends: params.friendId} }, 
+                {new: true});
+
+            if(!response)
+            {
+                res.status(404).json({message: "User not found"});
+                return;
+            }
+            res.json(response);
+        }
+        catch(err){
+           console.log(err);
+           res.status(400).json(err);
+        }
+    },
+
+    async RemoveFriends({params}, res){
+        try{
+            let response = await User.findOneAndUpdate(
+                {_id: params.userId},
+                {$pull: {friends: params.friendId} }, 
+                {new: true});
+
+            if(!response)
+            {
+                res.status(404).json({message: "User not found"});
                 return;
             }
             res.json(response);

@@ -26,12 +26,10 @@ const UserSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Thought'
     }],
-    /*
     friends: [{
-        //Telling model comments comes from comment model
         type: Schema.Types.ObjectId,
         ref: 'User'
-    }]*/
+    }]
 },
 {
     toJSON: {
