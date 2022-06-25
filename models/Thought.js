@@ -47,13 +47,11 @@ const ThoughtSchema = new Schema({
         type: String,
         required: true
     },
-    reactions: [ReactionSchema]
-    /*
-    friends: [{
-        //Telling model comments comes from comment model
+    reactions: [ReactionSchema],
+    userId: {
         type: Schema.Types.ObjectId,
         ref: 'User'
-    }]*/
+    }
 },
 {
     toJSON: {

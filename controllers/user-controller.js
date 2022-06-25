@@ -1,4 +1,4 @@
-const {User} = require('../models');
+const {User, Thought} = require('../models');
 
 const userController = {
 
@@ -68,11 +68,14 @@ const userController = {
     async removeUser({params}, res){
         try{
             let response = await User.findOneAndDelete({_id: params.id});
-            if(!res)
+            if(!response)
             {
                 res.status(404).json({message : "User not found"});
                 return;
             }
+            
+            let remove = await Thought.deleteMany({userId: params.id});
+
             res.json(response);
         }
         catch(err){

@@ -14,7 +14,6 @@ router
     .post(addFriends)
     .delete(RemoveFriends);
 
-{}
 router
     .route('/')
     .get(getAllUsers)
