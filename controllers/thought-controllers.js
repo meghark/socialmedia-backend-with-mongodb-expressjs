@@ -1,4 +1,4 @@
-const {Thought} = require('../models');
+const {Thought, User} = require('../models');
 
 const thoughtController = {
     async getAllThoughts(req, res){
@@ -29,13 +29,18 @@ const thoughtController = {
     async addThought({body}, res){
         try{
             let response = await Thought.create(body);
-            let userdata = await Thought.findOneAndUpdate({_id : body.userId},
+            if(!response._id)
+            {
+                res.status(400).json({message: "Failed adding thought"});
+                return;
+            }
+            let userdata = await User.findOneAndUpdate({_id : body.userId},
                                     {$push: {thoughts: response._id}},
                                     {new: true});
 
             if(!userdata)
             {
-                res.status(400).json({message: ""});
+                res.status(400).json({message: "Failed adding thought to user"});
                 return;
             }
             res.json(userdata);
@@ -59,7 +64,7 @@ const thoughtController = {
     async removeThought({params}, res){
         try{
             let response = await Thought.findOneAndDelete({_id: params.id});
-            if(!res)
+            if(!response)
             {
                 res.status(404).json({message : "Thought not found"});
                 return;

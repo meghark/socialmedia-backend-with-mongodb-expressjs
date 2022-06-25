@@ -4,7 +4,7 @@ const router = require('express').Router();
 
 
 router.use('/users', userRoute);
-router.use('/thoughts', userRoute);
+router.use('/thoughts', thoughtRoute);
 
 
 module.exports = router;
