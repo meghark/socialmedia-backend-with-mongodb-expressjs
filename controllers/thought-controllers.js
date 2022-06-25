@@ -26,10 +26,20 @@ const thoughtController = {
            res.status(400).json(err);
         }
     },
-    async addThought({body}, res){
+    async addThought({params, body}, res){
         try{
             let response = await Thought.create(body);
-            res.json(response);
+        
+            let userdata = await Thought.findOneAndUpdate({_id : params.id},
+                                    {$push: {thoughts: response._id}},
+                                    {new: true});
+
+            if(!userdata)
+            {
+                res.status(400).json({message: ""});
+                return;
+            }
+            res.json(userdata);
         }
         catch(err){
            console.log(err);

@@ -7,6 +7,7 @@ const {
     removeThought
 } = require("../../controllers/thought-controllers");
 
+
 router
     .route('/')
     .get(getAllThoughts)
