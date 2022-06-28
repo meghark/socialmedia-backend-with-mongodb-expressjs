@@ -1,3 +1,4 @@
+// Router for all api calls for users and friends.
 const router = require('express').Router();
 const {
     getAllUsers,

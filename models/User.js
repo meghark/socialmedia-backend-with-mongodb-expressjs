@@ -1,6 +1,7 @@
 const { Schema, model } = require('mongoose');
 const dateFormat = require('../utils/dateFormat');
 
+// Define user schema
 const UserSchema = new Schema({
     username:{
         type: String,
@@ -28,11 +29,12 @@ const UserSchema = new Schema({
         }
     },
     thoughts: [{
-        //Telling model thoughts come from thoughts model
+        // Telling model thoughts come from thoughts model.
         type: Schema.Types.ObjectId,
         ref: 'Thought'
     }],
     friends: [{
+        // Telling model friends come from friends model.
         type: Schema.Types.ObjectId,
         ref: 'User'
     }]
@@ -45,11 +47,12 @@ const UserSchema = new Schema({
     id: false
 });
 
-
+// Virtual calculates the number of friends a user has.
 UserSchema.virtual('friendCount').get(function() {
     return this.friends.length;
 }); 
 
+// Create user model
 const User = model('User', UserSchema);
 
 module.exports = {User};

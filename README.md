@@ -23,3 +23,7 @@ https://meghark.github.io/portfolio/
 
 ## Contribution
 Created by Megha Kulathattil.
+
+
+Invalid email
+saving current user as friend

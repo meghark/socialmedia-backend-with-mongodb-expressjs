@@ -1,6 +1,10 @@
 const {Thought, User} = require('../models');
 
+// Controller methods with be called by the api routes.
+// The controller will access the models to process the requests.
+// Each method receives a set of input in the form of params or body and a response object.
 const thoughtController = {
+    //Returb all thoughts for all users, show reactions as well for the thoughts.
     async getAllThoughts(req, res){
         try{
             let data = await Thought.find({})
@@ -16,6 +20,7 @@ const thoughtController = {
            res.status(400).json(err);
         }
     },
+    //Return a single thought and reaction by provided id.
     async getOneThoughtById({params}, res){
         try{
             let data = await Thought.findOne({ _id: params.thoughtId});
@@ -31,6 +36,7 @@ const thoughtController = {
            res.status(400).json(err);
         }
     },
+    //Add a new thought by  a user
     async addThought({body}, res){
         try{
             let response = await Thought.create(body);
@@ -55,7 +61,7 @@ const thoughtController = {
            res.status(400).json(err);
         }
     },
-    
+    //Add a reaction to a thought. Reactions are stored within thought schema.
     async addReaction({params, body}, res){
         try{
             let dbData = await Thought
@@ -75,6 +81,7 @@ const thoughtController = {
          }
 
     },
+    //Remove a reaction to a thought
     async removeReaction({params}, res){
         try{
             let dbData = await Thought
@@ -93,7 +100,7 @@ const thoughtController = {
             res.status(400).json(err);
          }
     },
-    
+    //Update a thought by id.
     async updateThought({params, body}, res){
         try{
             let response = await Thought.findOneAndUpdate(
@@ -105,6 +112,7 @@ const thoughtController = {
            res.status(400).json(err);
         }
     },
+    //Remove a thought
     async removeThought({params}, res){
         try{
             let response = await Thought.findOneAndDelete({_id: params.thoughtId});

@@ -1,3 +1,4 @@
+// Router for all api calls for thoughts and reactions.
 const router = require('express').Router();
 const {
     getAllThoughts,

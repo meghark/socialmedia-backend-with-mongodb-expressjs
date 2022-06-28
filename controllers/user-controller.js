@@ -1,7 +1,10 @@
 const {User, Thought} = require('../models');
 
+// Controller methods with be called by the api routes.
+// The controller will access the models to process the requests.
+// Each method receives a set of input in the form of params or body and a response object.
 const userController = {
-
+    //Return all users. Show any thoughts or friends a user has.
     async getAllUsers(req, res){
         try{
             let data = await User.find({})
@@ -22,7 +25,7 @@ const userController = {
            res.status(400).json(err);
         }
     },
-
+    //Return a single user
     async getOneUserById({params}, res){
         try{
             let data = await User.findOne({ _id: params.id});
@@ -38,7 +41,7 @@ const userController = {
            res.status(400).json(err);
         }
     },
-
+    //Add a user
     async addUser({body}, res){
         console.log("here");
         console.log(body);
@@ -51,7 +54,7 @@ const userController = {
            res.status(400).json(err);
         }
     }, 
-    
+    //Update a user
     async updateUser({params, body}, res){
         try{
             let response = await User.findOneAndUpdate(
@@ -68,7 +71,7 @@ const userController = {
            res.status(400).json(err);
         }
     },
-
+    // Remove a user. This will also remove any thoughts the user has created.
     async removeUser({params}, res){
         try{
             let response = await User.findOneAndDelete({_id: params.id});
@@ -85,7 +88,7 @@ const userController = {
            res.status(400).json(err);
         }
     },
-
+    // Add friends
     async addFriends({params}, res){
         try{
             let response = await User.findOneAndUpdate(
@@ -105,7 +108,7 @@ const userController = {
            res.status(400).json(err);
         }
     },
-
+    // Remove friend
     async RemoveFriends({params}, res){
         try{
             let response = await User.findOneAndUpdate(
@@ -125,7 +128,6 @@ const userController = {
            res.status(400).json(err);
         }
     }
-
 };
 
 module.exports = userController;
