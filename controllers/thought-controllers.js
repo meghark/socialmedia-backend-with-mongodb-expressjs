@@ -75,7 +75,7 @@ const thoughtController = {
          }
 
     },
-    async removeReaction({params}){
+    async removeReaction({params}, res){
         try{
             let dbData = await Thought
                                     .findOneAndUpdate({ _id: params.thoughtId},
