@@ -25,5 +25,4 @@ https://meghark.github.io/portfolio/
 Created by Megha Kulathattil.
 
 
-Invalid email
-saving current user as friend
+Sort thoughts and reaction by dates

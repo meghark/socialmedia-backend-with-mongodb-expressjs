@@ -91,14 +91,20 @@ const userController = {
     // Add friends
     async addFriends({params}, res){
         try{
+            var checkFriendExist ={
+                _id: params.userId,
+                'friends': { $ne: params.friendId}
+            } ;
+
             let response = await User.findOneAndUpdate(
-                {_id: params.userId},
+                checkFriendExist,
+                //{_id: params.userId},
                 {$push: {friends: params.friendId} }, 
                 {new: true});
 
             if(!response)
             {
-                res.status(404).json({message: "User not found"});
+                res.status(404).json({message: "Friend add failed"});
                 return;
             }
             res.json(response);
