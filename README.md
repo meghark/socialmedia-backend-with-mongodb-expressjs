@@ -27,6 +27,7 @@ https://meghark.github.io/portfolio/
 * Use Insomnia, Postman etc to connect to backend.
 
 ## Walkthrough Video Link
+https://drive.google.com/file/d/1i6KaOb2XvmnYQrF1qgCnAc_OliLNsKU3/view
 
 ## Questions
 
