@@ -14,9 +14,6 @@ This project builds a social media backend with the following features:
 * MangoDB
 * Mangoose 
 
-## Website
-https://meghark.github.io/portfolio/
-
 ## Usage
 
 * Clone the repository.
